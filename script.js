@@ -11,10 +11,41 @@ const winningCombinations = [
 ]
 
 
-function mark(index, marker) {
-  if (boxStatus[index] === undefined ) {
+function mark(index) {
+  const marker = isX ? 'X' : 'O'
+
+  if (winner) {
+    return
+  }
+
+  if (boxStatus[index] === undefined) {
     boxStatus[index] = marker;
+    isX = !isX
+
+    const win = determineWinner()
+    if (win) {
+      winner = win
+    }
   } 
+}
+
+function determineWinner() {
+  // winningCombinations is an array of triples that represent coordinates in the boxStatus array
+  // for potential combinations of wins.  
+
+  for (let i = 0; i < winningCombinations.length; i++) {
+    const triple = winningCombinations[i];
+
+    // Get 3 elements from the boxStatus array at the indexes for this combination
+    const picks = triple.map(i => boxStatus[i])
+    if (picks.toString() === ['X', 'X', 'X'].toString()) {
+      return "Player 1"
+    } else if (picks.toString() === ['O', 'O', 'O'].toString()) {
+      return "Player 2"
+    }
+  }
+
+  return null
 }
 
 function updateGridBoxes() {
@@ -32,15 +63,38 @@ function updateGridBoxes() {
   }
 }
 
-newGameBtn.addEventListener('click', startNewGame);
+function updateMessage() {
+  const messageParagraph = document.querySelector('.user-message');
+  let message = ""
 
+  if (winner) {
+    message = `${winner} has won! Start a new game`
+  } else if (isTie()) {
+    message = "It's a tie! Start a new game"
+  } else if (isX === true) {
+    message = "Player 1, it's your turn"
+  } else if (isX === false) {
+    message = "Player 2, it's your turn"
+  }
+  messageParagraph.textContent = message
+}
+
+function isTie() {
+  const filledBoxes = boxStatus.filter((x) => x !== undefined)
+  return !winner && filledBoxes.length == 9
+}
+
+newGameBtn.addEventListener('click', startNewGame);
 gameGrid.addEventListener('click', function(e) {
   const box = e.target
   const index = box.dataset.number
-  const marker = isX ? 'X' : 'O'
-  mark(index, marker)
+  if (!index)
+    return
+ 
+  mark(index)
+
   updateGridBoxes()
-  isX = !isX
+  updateMessage()
 });
 
 function startNewGame() {
@@ -48,5 +102,7 @@ function startNewGame() {
   boxStatus = [];
   winner = undefined;
   updateGridBoxes()
+  updateMessage()
 }
 
+updateMessage();

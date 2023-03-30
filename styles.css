@@ -56,10 +56,12 @@ img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 100px);
-  
 }
 
 .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 200px;
   max-height: 200px;
   border-right: 3px solid white;
