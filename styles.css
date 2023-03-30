@@ -54,8 +54,8 @@ img {
   max-width: 300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 100px 100px 100px;
-  grid-template-rows: 100px 100px 100px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 100px);
   
 }
 
