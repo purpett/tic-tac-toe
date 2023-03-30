@@ -25,15 +25,12 @@ function updateGridBoxes() {
     if (boxStatus[i] === 'X') {
       image.src = "images/x1.svg"
       box.appendChild(image)
-
     } else if (boxStatus[i] === 'O') {
       image.src = "images/o1.svg"
       box.appendChild(image)
     }
   }
 }
-
-
 
 newGameBtn.addEventListener('click', startNewGame);
 
@@ -46,8 +43,10 @@ gameGrid.addEventListener('click', function(e) {
   isX = !isX
 });
 
-
 function startNewGame() {
-  //
+  isX = true;
+  boxStatus = [];
+  winner = undefined;
+  updateGridBoxes()
 }
 
