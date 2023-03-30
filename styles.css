@@ -1,4 +1,77 @@
-/* body {
+* {
+  box-sizing: border-box;
+}
+
+body {
   background: rgb(112,104,240);
   background: linear-gradient(90deg, rgba(112,104,240,1) 0%, rgba(255,100,180,1) 49%, rgba(255,217,74,1) 100%);
-} */
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  flex: 1;
+  max-width: 800px;
+  min-height: max(90vh, 600px);     /* the minimum height is the biggest number between the two values given depending on the viewport */
+  background-color: #1c0854;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  color: white;
+}
+
+.players {
+  display: flex;
+  justify-content: center;
+
+}
+
+.player {
+  color: white;
+}
+
+img {
+  max-width: 4rem;
+}
+
+.button {
+  text-align: center;
+}
+
+.user-message {
+  color: white;
+  text-align: center;
+}
+
+.grid {
+  max-width: 300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  
+}
+
+.box {
+  max-width: 200px;
+  max-height: 200px;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+}
+
+.box:nth-child(3n) {
+  border-right: none;
+}
+
+.box:nth-child(7),
+.box:nth-child(8),
+.box:nth-child(9) {
+  border-bottom: none;
+}
