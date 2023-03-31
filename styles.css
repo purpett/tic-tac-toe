@@ -10,31 +10,43 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Comfortaa', cursive;
 }
 
 .card {
   flex: 1;
   max-width: 800px;
   min-height: max(90vh, 600px);     /* the minimum height is the biggest number between the two values given depending on the viewport */
-  background-color: #1c0854;
+  background-color: rgb(27, 9, 59);
   border-radius: 1rem;
   padding: 1rem;
 }
 
 h1 {
+  font-family: 'Comfortaa', cursive;
   text-align: center;
-  margin-top: 0;
+  margin;
   color: white;
+  font-size: 40px;
 }
 
 .players {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+  margin: 2rem;
+}
 
+.players-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 }
 
 .player {
   color: white;
+  margin-bottom: 1rem;
 }
 
 img {
@@ -42,7 +54,68 @@ img {
 }
 
 .button {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button button {
+  background-color: rgb(146, 93, 221);
+  color: white;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  transition: all 250ms;
+  margin: 0;
+  min-height: 3rem;
+  padding: 1rem;
+}
+
+.button button:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: rgba(255, 255, 255, 0.433) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.799);
+}
+
+.button button:active {
+  background-color: rgb(248, 137, 105);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 6px 8px;
+  color: rgba(255, 254, 254, 0.841);
+  transform: translateY(0);
+  transition: 250ms;
+}
+
+.game-logic {
+  display: flex;
+  justify-content: space-around;
+  gap: 100px;
+  align-items: start;
+}
+
+.scores-container {
+  margin-left: 3rem;
+}
+
+p.scores {
+  color: white;
+}
+
+.scores-box {
+  min-width: 200px;
+  min-height: 100px;
+  background-color: azure;
+}
+
+.game-container {
+  flex: 1;
 }
 
 .user-message {
