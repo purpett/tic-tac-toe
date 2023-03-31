@@ -13,7 +13,6 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6]
 ]
 
-
 // this function assigns values inside boxStatus array at the given index
 function mark(index) {
   const marker = isX ? 'X' : 'O'    // marker contains 'X' or 'O' depending on content of isX
@@ -75,11 +74,23 @@ function updateGridBoxes() {
 // this function updates the displayed message depending on game status 
 function updateMessage() {
   const messageParagraph = document.querySelector('.user-message');
+  const p1ScoreCell = document.querySelector('#p1-score');
+  const p2ScoreCell = document.querySelector('#p2-score');
+  const tieScoreCell = document.querySelector('#tie-score');
   let message = ""
 
   if (winner) {
+    if (winner === "Player 1") {
+      p1Scores =+ 1;
+      p1ScoreCell.textContent = p1Scores
+    } else if (winner === "Player 2") {
+      p2Scores += 1;
+      p2ScoreCell.textContent = p2Scores
+    }
     message = `${winner} has won! Start a new game`
   } else if (isTie()) {
+    tieScores += 1;
+    tieScoreCell.textContent = tieScores
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
