@@ -13,6 +13,43 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6]
 ]
 
+loadGame()
+
+// this function puts the variables representing game status inside localStorage
+function storeGame() {
+  localStorage.setItem('isX', `${isX}`);
+  localStorage.setItem('boxStatus', `${boxStatus}`);
+  localStorage.setItem('winner', `${winner}`);
+  localStorage.setItem('p1Scores', `${p1Scores}`);
+  localStorage.setItem('p2Scores', `${p2Scores}`);
+  localStorage.setItem('tieScores', `${tieScores}`);
+}
+
+function loadGame() {
+  isX = localStorage.getItem('isX') === 'true'; // 'isX' returns a string, if compared to 'true' must return boolean
+  boxStatus = localStorage.getItem('boxStatus').split(',').map((item) => {
+    if (item === "") {
+      return undefined
+    } 
+    return item
+  });
+  winner = localStorage.getItem('winner') === 'undefined' ? undefined : localStorage.getItem('winner')
+  p1Scores = parseInt(localStorage.getItem('p1Scores'));
+  p2Scores = parseInt(localStorage.getItem('p2Scores'));
+  tieScores = parseInt(localStorage.getItem('tieScores'));
+}
+
+function incrementScores() {
+  if (winner === "Player 1") {
+    p1Scores += 1
+  } else if (winner === "Player 2") {
+    p2Scores += 1
+  } else if (isTie()) {
+    tieScores += 1
+  }
+  storeGame()
+}
+
 // this function assigns values inside boxStatus array at the given index
 function mark(index) {
   const marker = isX ? 'X' : 'O'    // marker contains 'X' or 'O' depending on content of isX
@@ -30,6 +67,8 @@ function mark(index) {
       winner = win
     }
   } 
+  incrementScores()
+  storeGame()
 }
 
 // this function checks if one of the winning combinations has been used in the game grid
@@ -49,8 +88,15 @@ function determineWinner() {
       return "Player 2"
     }
   }
-
+  storeGame()
   return null
+}
+
+// this function checks if the game is a tie
+function isTie() {
+  // array containing all not undefined items from boxStatus
+  const filledBoxes = boxStatus.filter((item) => item !== undefined) 
+  return !winner && filledBoxes.length === 9 // if filledBoxes are 9 and there is no winner, it must be a tie
 }
 
 // goes through each single grid cell
@@ -69,6 +115,7 @@ function updateGridBoxes() {
       box.appendChild(image)
     }
   }
+  storeGame()
 }
 
 // this function updates the displayed message depending on game status 
@@ -80,36 +127,22 @@ function updateMessage() {
   let message = ""
 
   if (winner) {
-    if (winner === "Player 1") {
-      p1Scores =+ 1;
-      p1ScoreCell.textContent = p1Scores
-    } else if (winner === "Player 2") {
-      p2Scores += 1;
-      p2ScoreCell.textContent = p2Scores
-    }
     message = `${winner} has won! Start a new game`
   } else if (isTie()) {
-    tieScores += 1;
-    tieScoreCell.textContent = tieScores
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
   } else if (isX === false) {
     message = "Player 2, it's your turn"
   }
+  p1ScoreCell.textContent = p1Scores
+  p2ScoreCell.textContent = p2Scores
+  tieScoreCell.textContent = tieScores
   messageParagraph.textContent = message
-}
-
-// this function checks if the game is a tie
-function isTie() {
-  // array containing all not undefined items from boxStatus
-  const filledBoxes = boxStatus.filter((item) => item !== undefined) 
-  return !winner && filledBoxes.length === 9 // if filledBoxes are 9 and there is no winner, it must be a tie
 }
 
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
-
 
 gameGrid.addEventListener('click', function(e) {
   const box = e.target    // box is a div
@@ -133,4 +166,5 @@ function startNewGame() {
 }
 
 // fills the message when page is loaded
+updateGridBoxes();
 updateMessage();
