@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Comfortaa', cursive;
+  font-size: 18px;
 }
 
 .card {
@@ -25,7 +26,6 @@ body {
 h1 {
   font-family: 'Comfortaa', cursive;
   text-align: center;
-  margin;
   color: white;
   font-size: 40px;
 }
@@ -95,13 +95,14 @@ img {
 
 .game-logic {
   display: flex;
-  justify-content: space-around;
-  gap: 100px;
   align-items: start;
+  gap: 32px;
+  padding-bottom: 1rem;
 }
 
 .scores-container {
-  margin-left: 3rem;
+  padding-left: 3rem;
+  flex: 1;
 }
 
 p.scores {
@@ -109,13 +110,26 @@ p.scores {
 }
 
 .scores-box {
-  min-width: 200px;
-  min-height: 100px;
-  background-color: azure;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 50%);
+  max-width: 300px;
+  min-height: 170px;
+  background-color:#a167dc;
+  color: white;
+  border-radius: 0.75rem;
+  padding: 1rem 0.5rem;
+}
+
+.score-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-container {
   flex: 1;
+  padding-right: 1rem;
 }
 
 .user-message {
@@ -135,7 +149,7 @@ p.scores {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 200px;
+  max-width: 300px;
   max-height: 200px;
   border-right: 3px solid white;
   border-bottom: 3px solid white;
@@ -149,4 +163,32 @@ p.scores {
 .box:nth-child(8),
 .box:nth-child(9) {
   border-bottom: none;
+}
+
+@media (max-width: 800px) {
+  .game-logic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scores-container {
+    margin-bottom: 3rem;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .scores-box {
+    width: 100%;
+  }
+
+  .game-container {
+    width: 100%;
+
+  }
 }
