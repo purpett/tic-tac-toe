@@ -13,30 +13,51 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6]
 ]
 
+// storeGame()
 loadGame()
 
 // this function puts the variables representing game status inside localStorage
 function storeGame() {
-  localStorage.setItem('isX', `${isX}`);
-  localStorage.setItem('boxStatus', `${boxStatus}`);
-  localStorage.setItem('winner', `${winner}`);
-  localStorage.setItem('p1Scores', `${p1Scores}`);
-  localStorage.setItem('p2Scores', `${p2Scores}`);
-  localStorage.setItem('tieScores', `${tieScores}`);
+  let gameData = {
+    isX: isX,
+    boxStatus: boxStatus,
+    winner: winner, 
+    p1Scores: p1Scores,
+    p2Scores: p2Scores,
+    tieScores: tieScores,
+  }
+
+localStorage.setItem('gameData', JSON.stringify(gameData))
+  // localStorage.setItem('isX', `${isX}`);
+  // localStorage.setItem('boxStatus', `${boxStatus}`);
+  // localStorage.setItem('winner', `${winner}`);
+  // localStorage.setItem('p1Scores', `${p1Scores}`);
+  // localStorage.setItem('p2Scores', `${p2Scores}`);
+  // localStorage.setItem('tieScores', `${tieScores}`);
 }
 
 function loadGame() {
-  isX = localStorage.getItem('isX') === 'true'; // 'isX' returns a string, if compared to 'true' must return boolean
-  boxStatus = localStorage.getItem('boxStatus').split(',').map((item) => {
-    if (item === "") {
-      return undefined
-    } 
-    return item
-  });
-  winner = localStorage.getItem('winner') === 'undefined' ? undefined : localStorage.getItem('winner')
-  p1Scores = parseInt(localStorage.getItem('p1Scores'));
-  p2Scores = parseInt(localStorage.getItem('p2Scores'));
-  tieScores = parseInt(localStorage.getItem('tieScores'));
+  let gameData = JSON.parse(localStorage.getItem('gameData'))
+  if (gameData) {
+    isX = gameData.isX;
+    boxStatus = gameData.boxStatus
+    winner = gameData.winner
+    p1Scores = gameData.p1Scores
+    p2Scores = gameData.p2Scores
+    tieScores = gameData.tieScores
+  }
+
+  // isX = localStorage.getItem('isX') === 'true'; // 'isX' returns a string, if compared to 'true' must return boolean
+  //   boxStatus = localStorage.getItem('boxStatus').split(',').map((item) => {
+  //     if (item === "") {
+  //       return undefined
+  //     } 
+  //     return item
+  //   });
+  // winner = localStorage.getItem('winner') === 'undefined' ? undefined : localStorage.getItem('winner')
+  // p1Scores = parseInt(localStorage.getItem('p1Scores'));
+  // p2Scores = parseInt(localStorage.getItem('p2Scores'));
+  // tieScores = parseInt(localStorage.getItem('tieScores'));
 }
 
 function incrementScores() {
