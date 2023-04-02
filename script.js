@@ -2,7 +2,10 @@ const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
 const resetBtn = document.querySelector('#reset');
 const playersSection = document.querySelector('.players-section');
-const clickingSound = new Audio('sounds/mixkit-cool-interface-click-tone-2568.wav')
+const clickingSound = new Audio('sounds/clicking.wav')
+const winningSound = new Audio('sounds/win.wav')
+const tieSound = new Audio('sounds/tie.wav')
+const newGameResetSound = new Audio('sounds/new-game-reset.wav')
 let p1IconImg = 1;
 let p2IconImg = 1;
 let isX = true;
@@ -52,6 +55,7 @@ function startNewGame() {
   isX = true;
   boxStatus = [];
   winner = undefined;
+  newGameResetSound.play();
   updateGridBoxes()
   updateMessage()
 }
@@ -146,8 +150,10 @@ function updateMessage() {
   let message = ""
 
   if (winner) {
+    winningSound.play();
     message = `${winner} has won! Start a new game`
   } else if (isTie()) {
+    tieSound.play()
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
@@ -168,6 +174,7 @@ resetBtn.addEventListener('click', function() {
   p1Scores = 0;
   p2Scores = 0;
   tieScores = 0;
+  newGameResetSound.play()
   startNewGame()
   storeGame()
 })
