@@ -2,6 +2,7 @@ const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
 const resetBtn = document.querySelector('#reset');
 const playersSection = document.querySelector('.players-section');
+const clickingSound = new Audio('sounds/mixkit-cool-interface-click-tone-2568.wav')
 let p1IconImg = 1;
 let p2IconImg = 1;
 let isX = true;
@@ -81,6 +82,8 @@ function mark(index) {
     const win = determineWinner()       // determineWinner() returns a string saying who is the winner
     if (win) {                          // if there is a winner, the string gets assigned to global variable 'winner'
       winner = win
+    } else {
+      clickingSound.play()
     }
   } 
   incrementScores()
@@ -196,6 +199,7 @@ playersSection.addEventListener('click', function(e) {
     }
     player.src = `images/o${p2IconImg}.svg`
   }
+  clickingSound.play()
   updateGridBoxes()
 })
 
