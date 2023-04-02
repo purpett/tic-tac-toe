@@ -53,6 +53,15 @@ img {
   max-width: 4rem;
 }
 
+.description img {
+  transition: all 0.2s ease-in-out;
+}
+
+.description img:hover {
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
 .button {
   display: flex;
   align-items: center;
