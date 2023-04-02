@@ -14,10 +14,12 @@
 </head>
 <body>
   <div class="card">
-    <h1>TIC TAC TOE</h1>
+    <header>
+      <h1>TIC TAC TOE</h1>
+    </header>
     <main>
-      <div class="players">
-        <div class="players-section">
+      <section class="players">
+        <section class="players-section">
           <div class="description">
             <div class="player one">Player 1</div>
             <img src="images/x1.svg" id="X" alt="x symbol for player 1">
@@ -26,11 +28,11 @@
             <div class="player two">Player 2</div>
             <img src="images/o1.svg" id="O" alt="o symbol for player 2">
           </div>
-        </div>
+        </section>
         <div class="button"><button type="button">New game</button></div>
-      </div>
-      <div class="game-logic">
-        <div class="scores-container">
+      </section>
+      <section class="game-logic">
+        <section class="scores-container">
           <p class="scores">Scores</p>
           <div class="scores-box">
             <div class="score-cell">Player 1</div>
@@ -41,10 +43,10 @@
             <div class="score-cell" id="tie-score"></div>
           </div>
           <div class="reset-btn-container"><button type="button" id="reset">Reset</button></div>
-        </div>
-        <div class="game-container">
+        </section>
+        <section class="game-container">
           <p class="user-message"></p>
-          <div class="grid">
+          <section class="grid">
             <div class="box" data-number="0"></div>
             <div class="box" data-number="1"></div>
             <div class="box" data-number="2"></div>
@@ -54,9 +56,9 @@
             <div class="box" data-number="6"></div>
             <div class="box" data-number="7"></div>
             <div class="box" data-number="8"></div>
-          </div>
-        </div>
-      </div>
+          </section>
+        </section>
+      </section>
     </main>
   </div>
 </body>
