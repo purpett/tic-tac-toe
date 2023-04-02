@@ -86,11 +86,14 @@ function mark(index) {
     const win = determineWinner()       // determineWinner() returns a string saying who is the winner
     if (win) {                          // if there is a winner, the string gets assigned to global variable 'winner'
       winner = win
+    } else if (isTie()) {
+      tieSound.play()
+
     } else {
       clickingSound.play()
     }
+    incrementScores()
   } 
-  incrementScores()
   storeGame()
 }
 
@@ -153,7 +156,6 @@ function updateMessage() {
     winningSound.play();
     message = `${winner} has won! Start a new game`
   } else if (isTie()) {
-    tieSound.play()
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
