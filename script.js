@@ -58,6 +58,7 @@ function startNewGame() {
   newGameResetSound.play();
   updateGridBoxes()
   updateMessage()
+  resetWinningCombination();
 }
 
 function incrementScores() {
@@ -88,7 +89,6 @@ function mark(index) {
       winner = win
     } else if (isTie()) {
       tieSound.play()
-
     } else {
       clickingSound.play()
     }
@@ -108,14 +108,32 @@ function determineWinner() {
     // then makes a new array with all boxStatus[item]
     const picks = triple.map((item) => boxStatus[item]) 
     // array === array returns false. Had to transform to strings to compare
-    if (picks.toString() === ['X', 'X', 'X'].toString()) {    
+    if (picks.toString() === ['X', 'X', 'X'].toString()) {   
+      colorWinningCombination(triple) 
       return "Player 1"
     } else if (picks.toString() === ['O', 'O', 'O'].toString()) {
+      colorWinningCombination(triple) 
       return "Player 2"
     }
   }
   storeGame()
   return null
+}
+
+
+// this function adds a class when a box is part of a selected winning combination
+function colorWinningCombination(triple) {
+  triple.forEach((index) => {
+    let box = document.querySelector(`.box[data-number="${index}"]`)
+    box.classList.add('winning')
+  })
+}
+
+function resetWinningCombination() {
+  for (let i = 0; i < 9; i++) {
+    let box = document.querySelector(`.box[data-number="${i}"]`)
+    box.classList.remove('winning')
+  }
 }
 
 // this function checks if the game is a tie
