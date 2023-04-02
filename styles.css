@@ -59,7 +59,7 @@ img {
   justify-content: center;
 }
 
-.button button {
+ button {
   background-color: rgb(146, 93, 221);
   color: white;
   font-family: 'Comfortaa', cursive;
@@ -75,17 +75,31 @@ img {
   display: inline-flex;
   transition: all 250ms;
   margin: 0;
-  min-height: 3rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
-.button button:hover {
+
+#reset {
+  margin-top: 2rem;
+  background-color: rgb(27, 9, 59);
+  border: 1px solid white;
+  font-size: 14px;
+  padding: 0.75rem 1rem;
+}
+
+button:hover,
+#reset:hover {
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: rgba(255, 255, 255, 0.433) 0 4px 12px;
   color: rgba(0, 0, 0, 0.799);
 }
 
-.button button:active {
+#reset:hover {
+  color:rgb(248, 137, 105);
+}
+
+button:active,
+#reset:active {
   background-color: rgb(248, 137, 105);
   box-shadow: rgba(0, 0, 0, 0.06) 0 6px 8px;
   color: rgba(255, 254, 254, 0.841);
@@ -93,15 +107,16 @@ img {
   transition: 250ms;
 }
 
+
 .game-logic {
   display: flex;
   align-items: start;
   gap: 32px;
   padding-bottom: 1rem;
+  margin: 2rem;
 }
 
 .scores-container {
-  padding-left: 3rem;
   flex: 1;
 }
 
