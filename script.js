@@ -1,6 +1,9 @@
 const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
 const resetBtn = document.querySelector('#reset');
+const playersSection = document.querySelector('.players-section');
+let p1IconImg = 1;
+let p2IconImg = 1;
 let isX = true;
 let boxStatus = [];
 let winner = undefined;
@@ -41,6 +44,15 @@ function loadGame() {
     p2Scores = gameData.p2Scores
     tieScores = gameData.tieScores
   }
+}
+
+// resets the grid and the message
+function startNewGame() {
+  isX = true;
+  boxStatus = [];
+  winner = undefined;
+  updateGridBoxes()
+  updateMessage()
 }
 
 function incrementScores() {
@@ -112,10 +124,10 @@ function updateGridBoxes() {
     box.innerHTML = "";
     let image = document.createElement('img')
     if (boxStatus[i] === 'X') {
-      image.src = "images/x1.svg"
+      image.src = `images/x${p1IconImg}.svg`
       box.appendChild(image)
     } else if (boxStatus[i] === 'O') {
-      image.src = "images/o1.svg"
+      image.src = `images/o${p2IconImg}.svg`
       box.appendChild(image)
     }
   }
@@ -147,6 +159,8 @@ function updateMessage() {
 
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
+
+//resets localStorage content so that the game and the scores are empty
 resetBtn.addEventListener('click', function() {
   p1Scores = 0;
   p2Scores = 0;
@@ -167,14 +181,23 @@ gameGrid.addEventListener('click', function(e) {
   updateMessage()   // updates user message
 });
 
-// resets the grid and the message
-function startNewGame() {
-  isX = true;
-  boxStatus = [];
-  winner = undefined;
+playersSection.addEventListener('click', function(e) {
+  let player = e.target;
+  if (player.id === "X") {
+    p1IconImg += 1
+    if (p1IconImg > 4) {
+      p1IconImg = 1;
+    }
+    player.src = `images/x${p1IconImg}.svg`
+  } else if (player.id === "O") {
+    p2IconImg += 1
+    if (p2IconImg > 4) {
+      p2IconImg = 1;
+    }
+    player.src = `images/o${p2IconImg}.svg`
+  }
   updateGridBoxes()
-  updateMessage()
-}
+})
 
 // fills the message when page is loaded
 updateGridBoxes();

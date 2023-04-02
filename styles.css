@@ -33,7 +33,7 @@ h1 {
 .players {
   display: flex;
   justify-content: space-evenly;
-  gap: 1rem;
+  gap: 2rem;
   margin: 2rem;
 }
 
