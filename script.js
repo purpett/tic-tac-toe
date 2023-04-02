@@ -1,5 +1,6 @@
 const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
+const resetBtn = document.querySelector('#reset');
 let isX = true;
 let boxStatus = [];
 let winner = undefined;
@@ -146,6 +147,13 @@ function updateMessage() {
 
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
+resetBtn.addEventListener('click', function() {
+  p1Scores = 0;
+  p2Scores = 0;
+  tieScores = 0;
+  startNewGame()
+  storeGame()
+})
 
 gameGrid.addEventListener('click', function(e) {
   const box = e.target    // box is a div
