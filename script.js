@@ -28,12 +28,6 @@ function storeGame() {
   }
 
 localStorage.setItem('gameData', JSON.stringify(gameData))
-  // localStorage.setItem('isX', `${isX}`);
-  // localStorage.setItem('boxStatus', `${boxStatus}`);
-  // localStorage.setItem('winner', `${winner}`);
-  // localStorage.setItem('p1Scores', `${p1Scores}`);
-  // localStorage.setItem('p2Scores', `${p2Scores}`);
-  // localStorage.setItem('tieScores', `${tieScores}`);
 }
 
 function loadGame() {
@@ -46,18 +40,6 @@ function loadGame() {
     p2Scores = gameData.p2Scores
     tieScores = gameData.tieScores
   }
-
-  // isX = localStorage.getItem('isX') === 'true'; // 'isX' returns a string, if compared to 'true' must return boolean
-  //   boxStatus = localStorage.getItem('boxStatus').split(',').map((item) => {
-  //     if (item === "") {
-  //       return undefined
-  //     } 
-  //     return item
-  //   });
-  // winner = localStorage.getItem('winner') === 'undefined' ? undefined : localStorage.getItem('winner')
-  // p1Scores = parseInt(localStorage.getItem('p1Scores'));
-  // p2Scores = parseInt(localStorage.getItem('p2Scores'));
-  // tieScores = parseInt(localStorage.getItem('tieScores'));
 }
 
 function incrementScores() {
@@ -79,7 +61,7 @@ function mark(index) {
     return        // this does not allow to keep playing
   }
 
-  if (boxStatus[index] === undefined) { // if the value of boxStatus with given index is not assigned
+  if (!boxStatus[index]) {              // if the value of boxStatus with given index is not assigned
     boxStatus[index] = marker;          // it replaces it with the marker (depends on isX)
     isX = !isX                          // this flips the value of isX at the end of each turn
 
@@ -116,7 +98,7 @@ function determineWinner() {
 // this function checks if the game is a tie
 function isTie() {
   // array containing all not undefined items from boxStatus
-  const filledBoxes = boxStatus.filter((item) => item !== undefined) 
+  const filledBoxes = boxStatus.filter((item) => item) // where item is not null or undefined
   return !winner && filledBoxes.length === 9 // if filledBoxes are 9 and there is no winner, it must be a tie
 }
 
