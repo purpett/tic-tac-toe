@@ -49,6 +49,15 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.two select {
+  background-color: rgb(27, 9, 59);
+  color: white;
+  font-family: 'Comfortaa', cursive;
+  font-size: 18px;
+  min-height: 2rem;
+  border: none;
+}
+
 img {
   max-width: 4rem;
 }

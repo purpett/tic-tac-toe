@@ -4,6 +4,7 @@ const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
 const resetBtn = document.querySelector('#reset');
 const playersSection = document.querySelector('.players-section');
+const player2Select = document.querySelector('select')
 const clickingSound = new Audio('sounds/clicking.wav')
 const winningSound = new Audio('sounds/win.wav')
 const tieSound = new Audio('sounds/tie.wav')
@@ -25,8 +26,9 @@ const winningCombinations = [
 ]
 
 
-
+//
 // Logic of the game is developed with functions (where possible, DOM manipulation is separate from logic).
+//
 
 
 // storeGame()
@@ -129,31 +131,57 @@ function determineWinner() {
 }
 
 function computerMove() {
-  if (isX) {
+  if (isX || winner || isTie()) {
     return
   }
+
+  let played = false
 
   for (let i = 0; i < winningCombinations.length; i++) {
     const triple = winningCombinations[i];
     const picks = triple.map((item) => boxStatus[item])
-
     let howManyMarksO = picks.filter((value) => value === 'O').length
-    let howManyMarksX = picks.filter((value) => value === 'X').length
-    if ((boxStatus.filter((item) => item)).length === 1) {
-      let randomIndex = Math.floor(Math.random() * 10);
-      mark(randomIndex)
-    }
-    else if (howManyMarksO === 2) {
+    if (howManyMarksO === 2) {
       let indexO = picks.findIndex((value) => !value)
-      mark(indexO)
-    } else if (howManyMarksX === 2) {
+      played = true
+      mark(triple[indexO])
+      break
+    }
+  }
+  
+  for (let i = 0; i < winningCombinations.length; i++) {
+    const triple = winningCombinations[i];
+    const picks = triple.map((item) => boxStatus[item])
+    let howManyMarksX = picks.filter((value) => value === 'X').length
+    if (howManyMarksX === 2) {
       let indexX = picks.findIndex((value) => !value)
-      mark(indexX)
+      if (indexX >= 0) {
+        played = true
+      mark(triple[indexX])
+      } else {
+        played = false
+      }
+      break
+    }
+  }
+
+  if (!played) {
+    computerRandomMove()
+    played = true
+  }
+
+  updateGridBoxes()
+}
+
+function computerRandomMove() {
+  while (true) {
+    let randomIndex = Math.floor(Math.random() * 10);
+    if (boxStatus[randomIndex] === undefined) {
+      mark(randomIndex)
+      break
     }
   }
 }
-
-
 
 // this function adds a class when a box is part of a selected winning combination
 function colorWinningCombination(triple) {
@@ -211,9 +239,9 @@ function updateMessage() {
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
-  } else if (isX === false && player2 === 'Computer') {
+  } else if (isX === false && player2 === "Computer") {
     message = "It's the Computer's turn"
-  } else if (isX === false && player2 === 'Player 2') {
+  } else if (isX === false && player2 === "Player 2") {
     message = "Player 2, it's your turn"
   }
   p1ScoreCell.textContent = p1Scores
@@ -223,10 +251,19 @@ function updateMessage() {
 }
 
 
-
+//
 // DOM manipulation with event listeners
+//
 
 
+player2Select.addEventListener('change', function(e) {
+  let selectValue = e.target.value
+  if (selectValue === "1") {
+    player2 = "Computer"
+    computerMove()
+  }
+  updateMessage()
+})
 
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
@@ -251,6 +288,12 @@ gameGrid.addEventListener('click', function(e) {
 
   updateGridBoxes() // puts the relevant image into the clicked cell
   updateMessage()   // updates user message
+  
+  if (player2 === "Computer") {
+    computerMove()
+    updateGridBoxes()
+    updateMessage()
+  }
 });
 
 playersSection.addEventListener('click', function(e) {
