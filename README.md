@@ -10,7 +10,8 @@ The goal of the game is to be the first to place three tokens in a vertical, hor
 
 ## Definition of the product
 
-Web-based application that allows two users to play the classic game of Tic Tac Toe against each other. The game is built using HTML, CSS, and JavaScript, and it runs entirely in the user's web browser. The game has a simple and intuitive user interface that allows players to easily customize their token, select their moves and see the current state of the game board, among other features.
+Web-based application that allows two users to play the classic game of Tic Tac Toe against each other. The game is built using HTML, CSS, and JavaScript, and it runs entirely in the user's web browser. The game has a simple and intuitive user interface that allows players to easily customize their token, select their moves and see the current state of the game board, among other features. 
+A user can choose whether to play against another player or against a computer.
 
 ## Technology
 
@@ -64,6 +65,7 @@ Web-based application that allows two users to play the classic game of Tic Tac 
 - [x] Make your site fully responsive so that it is playable from a mobile phone
 - [x] Get inventive with your styling e.g. use hover effects or animations
 - [x] Allow to clear localStorage and reset the game, including the scoreboard
+- [x] Create an AI opponent that plays an almost unbeatable game
 
 ## Approach
 
@@ -103,10 +105,19 @@ Web-based application that allows two users to play the classic game of Tic Tac 
 - As a user, I should be able to keep playing the game and not lose the score if my page refreshes or there is a temporary internet loss
 - As a user, I want to see visual changes when somebody wins
 - As a user, I would like to hear sounds when using the application
+- As a computer, I want to play my move so that I can mostly win or tie (rarely lose)
+- As a computer, I want to prioritize my own winning over preventing the user from winning
+- As a user, I should be able to choose whether player 2 will be a human or a computer
+- As a user, I want to hear sounds when switching player 2 
+- As a user, I want to reset the game and the scoreboard when I switch player 2
+- As a user, I should be able notice that I can change player 2
+- As a user, I want to play against a computer to have fun without a second human player
+- As a user, I want the move of the computer to be shown after some time, to make the game look more natural
+- As a user, I want to see the word "Computer" instead of "Player 2" so that I know if I am playing against one.
 
 ### Future plans
 
-- [ ] Create an AI opponent: teach JavaScript to play an unbeatable game
+- [ ] Make the AI opponent unbeatable
 - [ ] Allow 2 players to play online with each other using any means such as WebSockets, Firebase, or other 3rd-party services.
 
 ## Playing

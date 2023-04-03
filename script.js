@@ -265,6 +265,10 @@ function resetWinningCombination() {
 
 
 player2Select.addEventListener('change', function(e) {
+  resetScores()
+  newGameResetSound.play()
+  startNewGame()
+  storeGame()
   let selectValue = e.target.value
   if (selectValue === "1") {
     player2 = "Computer"
@@ -279,11 +283,16 @@ player2Select.addEventListener('change', function(e) {
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
 
-//resets localStorage content so that the game and the scores are empty
-resetBtn.addEventListener('click', function() {
+
+function resetScores() {
   p1Scores = 0;
   p2Scores = 0;
   tieScores = 0;
+}
+
+//resets localStorage content so that the game and the scores are empty
+resetBtn.addEventListener('click', function() {
+  resetScores()
   newGameResetSound.play()
   startNewGame()
   storeGame()
