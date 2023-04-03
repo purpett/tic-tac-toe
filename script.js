@@ -127,6 +127,32 @@ function determineWinner() {
   return null
 }
 
+function computerMove() {
+  if (isX) {
+    return
+  }
+
+  for (let i = 0; i < winningCombinations.length; i++) {
+    const triple = winningCombinations[i];
+    const picks = triple.map((item) => boxStatus[item])
+
+    let howManyMarksO = picks.filter((value) => value === 'O').length
+    let howManyMarksX = picks.filter((value) => value === 'X').length
+    if ((boxStatus.filter((item) => item)).length === 1) {
+      let randomIndex = Math.floor(Math.random() * 10);
+      mark(randomIndex)
+    }
+    else if (howManyMarksO === 2) {
+      let indexO = picks.findIndex((value) => !value)
+      mark(indexO)
+    } else if (howManyMarksX === 2) {
+      let indexX = picks.findIndex((value) => !value)
+      mark(indexX)
+    }
+  }
+}
+
+
 
 // this function adds a class when a box is part of a selected winning combination
 function colorWinningCombination(triple) {
