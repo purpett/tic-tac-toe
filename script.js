@@ -8,6 +8,7 @@ const clickingSound = new Audio('sounds/clicking.wav')
 const winningSound = new Audio('sounds/win.wav')
 const tieSound = new Audio('sounds/tie.wav')
 const newGameResetSound = new Audio('sounds/new-game-reset.wav')
+let player2 = "Player 2"
 let p1IconImg = 1;
 let p2IconImg = 1;
 let isX = true;
@@ -71,7 +72,7 @@ function startNewGame() {
 function incrementScores() {
   if (winner === "Player 1") {
     p1Scores += 1
-  } else if (winner === "Player 2") {
+  } else if (winner === player2) {
     p2Scores += 1
   } else if (isTie()) {
     tieScores += 1
@@ -120,7 +121,7 @@ function determineWinner() {
       return "Player 1"
     } else if (picks.toString() === ['O', 'O', 'O'].toString()) {
       colorWinningCombination(triple) 
-      return "Player 2"
+      return player2
     }
   }
   storeGame()
@@ -210,7 +211,9 @@ function updateMessage() {
     message = "It's a tie! Start a new game"
   } else if (isX === true) {
     message = "Player 1, it's your turn"
-  } else if (isX === false) {
+  } else if (isX === false && player2 === 'Computer') {
+    message = "It's the Computer's turn"
+  } else if (isX === false && player2 === 'Player 2') {
     message = "Player 2, it's your turn"
   }
   p1ScoreCell.textContent = p1Scores
@@ -257,15 +260,16 @@ playersSection.addEventListener('click', function(e) {
     if (p1IconImg > 4) {
       p1IconImg = 1;
     }
+    clickingSound.play()
     player.src = `images/x${p1IconImg}.svg`
   } else if (player.id === "O") {
     p2IconImg += 1
     if (p2IconImg > 4) {
       p2IconImg = 1;
     }
+    clickingSound.play()
     player.src = `images/o${p2IconImg}.svg`
   }
-  clickingSound.play()
   updateGridBoxes()
 })
 
