@@ -143,11 +143,15 @@ function computerMove() {
     let howManyMarksO = picks.filter((value) => value === 'O').length
     if (howManyMarksO === 2) {
       let indexO = picks.findIndex((value) => !value)
-      played = true
-      mark(triple[indexO])
-      break
+      if (indexO >= 0) {
+        played = true
+        mark(triple[indexO])
+        break
+      }
     }
   }
+
+  console.log("After checking O", played)
   
   for (let i = 0; i < winningCombinations.length; i++) {
     const triple = winningCombinations[i];
@@ -157,13 +161,13 @@ function computerMove() {
       let indexX = picks.findIndex((value) => !value)
       if (indexX >= 0) {
         played = true
-      mark(triple[indexX])
-      } else {
-        played = false
+        mark(triple[indexX])
+        break
       }
-      break
     }
   }
+
+  console.log(played)
 
   if (!played) {
     computerRandomMove()
@@ -174,23 +178,32 @@ function computerMove() {
 }
 
 function computerRandomMove() {
-  while (true) {
-    let randomIndex = Math.floor(Math.random() * 10);
-    // let cornerIndex = [0, 2, 6, 8]
-
-    // for (let i = 0; i < cornerIndex.length; i++) {
-    //   let boxIndex = boxStatus[cornerIndex[i]]
-    //   if (boxIndex === undefined) {
-    //     mark(boxIndex)
-    //     break
-    //   }
-    // }
-
-    if (boxStatus[randomIndex] === undefined) {
-      mark(randomIndex)
-      break
-    }
+  // Try to get the center
+  if (!boxStatus[4]) {
+    mark(4)
+    return
   }
+
+  // Get the first available square
+  const index = boxStatus.findIndex(v => !v)
+  mark(index)
+
+  // let cornerIndex = [0, 2, 6, 8]
+  // let availableCorners = cornerIndex.filter(i => !boxStatus[i])
+
+  // if (availableCorners.length > 0) {
+  //   let randomCornerIndex = Math.floor(Math.random() * (availableCorners.length + 1))
+  //   mark(availableCorners[randomCornerIndex])
+  // } else {
+  //   while (true) {
+  //     let randomIndex = Math.floor(Math.random() * 9);
+
+  //     if (boxStatus[randomIndex] === undefined) {
+  //       mark(randomIndex)
+  //       break
+  //     }
+  //   }
+  // }
 }
 
 // this function adds a class when a box is part of a selected winning combination
@@ -300,14 +313,12 @@ gameGrid.addEventListener('click', function(e) {
  
   mark(index) // decides which mark is to be put in the boxStatus array
 
-  updateGridBoxes() // puts the relevant image into the clicked cell
-  updateMessage()   // updates user message
-  
   if (player2 === "Computer") {
     computerMove()
-    updateGridBoxes()
-    updateMessage()
   }
+
+  updateGridBoxes() // puts the relevant image into the clicked cell
+  updateMessage()   // updates user message
 });
 
 playersSection.addEventListener('click', function(e) {
