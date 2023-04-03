@@ -176,6 +176,16 @@ function computerMove() {
 function computerRandomMove() {
   while (true) {
     let randomIndex = Math.floor(Math.random() * 10);
+    // let cornerIndex = [0, 2, 6, 8]
+
+    // for (let i = 0; i < cornerIndex.length; i++) {
+    //   let boxIndex = boxStatus[cornerIndex[i]]
+    //   if (boxIndex === undefined) {
+    //     mark(boxIndex)
+    //     break
+    //   }
+    // }
+
     if (boxStatus[randomIndex] === undefined) {
       mark(randomIndex)
       break
@@ -258,10 +268,14 @@ function updateMessage() {
 
 player2Select.addEventListener('change', function(e) {
   let selectValue = e.target.value
+  const p2ScoreNameCell = document.querySelector('#p2-score-name-cell');
   if (selectValue === "1") {
     player2 = "Computer"
     computerMove()
+  } else {
+    player2 = "Player 2"
   }
+  p2ScoreNameCell.textContent = `${player2}`
   updateMessage()
 })
 
