@@ -1,3 +1,5 @@
+// Status of the game is stored in variables
+
 const newGameBtn = document.querySelector('.button button');
 const gameGrid = document.querySelector('.grid');
 const resetBtn = document.querySelector('#reset');
@@ -20,6 +22,11 @@ const winningCombinations = [
   [0, 3, 6], [1, 4, 7], [2, 5, 8],
   [0, 4, 8], [2, 4, 6]
 ]
+
+
+
+// Logic of the game is developed with functions (where possible, DOM manipulation is separate from logic).
+
 
 // storeGame()
 loadGame()
@@ -185,6 +192,12 @@ function updateMessage() {
   tieScoreCell.textContent = tieScores
   messageParagraph.textContent = message
 }
+
+
+
+// DOM manipulation with event listeners
+
+
 
 //starts new game when clicking button
 newGameBtn.addEventListener('click', startNewGame);
