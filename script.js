@@ -9,6 +9,8 @@ const clickingSound = new Audio('sounds/clicking.wav')
 const winningSound = new Audio('sounds/win.wav')
 const tieSound = new Audio('sounds/tie.wav')
 const newGameResetSound = new Audio('sounds/new-game-reset.wav')
+const p2ScoreNameCell = document.querySelector('#p2-score-name-cell');
+
 let player2 = "Player 2"
 let p1IconImg = 1;
 let p2IconImg = 1;
@@ -46,7 +48,7 @@ function storeGame() {
     player2: player2,
   }
 
-localStorage.setItem('gameData', JSON.stringify(gameData))
+  localStorage.setItem('gameData', JSON.stringify(gameData))
 }
 
 function loadGame() {
@@ -59,6 +61,8 @@ function loadGame() {
     p2Scores = gameData.p2Scores
     tieScores = gameData.tieScores
     player2 = gameData.player2
+    p2ScoreNameCell.textContent = player2
+    player2Select.selectedIndex = player2 === "Computer" ? 1 : 0
   }
 }
 
@@ -281,7 +285,6 @@ function updateMessage() {
 
 player2Select.addEventListener('change', function(e) {
   let selectValue = e.target.value
-  const p2ScoreNameCell = document.querySelector('#p2-score-name-cell');
   if (selectValue === "1") {
     player2 = "Computer"
     computerMove()
@@ -314,7 +317,10 @@ gameGrid.addEventListener('click', function(e) {
   mark(index) // decides which mark is to be put in the boxStatus array
 
   if (player2 === "Computer") {
-    setTimeout(computerMove, 800)
+    setTimeout(() => {
+      computerMove()
+      updateMessage()
+    }, 800)
   }
 
   updateGridBoxes() // puts the relevant image into the clicked cell
