@@ -43,6 +43,7 @@ function storeGame() {
     p1Scores: p1Scores,
     p2Scores: p2Scores,
     tieScores: tieScores,
+    player2: player2,
   }
 
 localStorage.setItem('gameData', JSON.stringify(gameData))
@@ -57,6 +58,7 @@ function loadGame() {
     p1Scores = gameData.p1Scores
     p2Scores = gameData.p2Scores
     tieScores = gameData.tieScores
+    player2 = gameData.player2
   }
 }
 
@@ -151,8 +153,6 @@ function computerMove() {
     }
   }
 
-  console.log("After checking O", played)
-  
   for (let i = 0; i < winningCombinations.length; i++) {
     const triple = winningCombinations[i];
     const picks = triple.map((item) => boxStatus[item])
@@ -314,7 +314,7 @@ gameGrid.addEventListener('click', function(e) {
   mark(index) // decides which mark is to be put in the boxStatus array
 
   if (player2 === "Computer") {
-    computerMove()
+    setTimeout(computerMove, 800)
   }
 
   updateGridBoxes() // puts the relevant image into the clicked cell
