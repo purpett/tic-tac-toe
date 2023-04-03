@@ -51,6 +51,7 @@ function storeGame() {
   localStorage.setItem('gameData', JSON.stringify(gameData))
 }
 
+// this function loads the saved variables and their values back in the game when the page reloads
 function loadGame() {
   let gameData = JSON.parse(localStorage.getItem('gameData'))
   if (gameData) {
@@ -136,94 +137,53 @@ function determineWinner() {
   return null
 }
 
+// Checks all potential winning combinations for two out of three sequences
+// For example two Xs or two Os in the same row, column or diagonal.
+// The marker parameter is used to determine which marker to look for (pass X to look for XX, O for OO)
+function findTwoThirds(marker) {
+  for (let i = 0; i < winningCombinations.length; i++) {
+    const triple = winningCombinations[i];
+    const picks = triple.map((item) => boxStatus[item])
+    let howManyMarks = picks.filter((value) => value === marker).length
+    if (howManyMarks === 2) {
+      let blankBox = picks.findIndex((value) => !value)
+      if (blankBox >= 0) {
+        mark(triple[blankBox])
+        return true
+      }
+    }
+  }
+  return false
+}
+
+// Decides the computer's move
 function computerMove() {
-  if (isX || winner || isTie()) {
+  if (isX || winner || isTie()) {   // to check if it's the computer's turn & if game is over
     return
   }
 
-  let played = false
-
-  for (let i = 0; i < winningCombinations.length; i++) {
-    const triple = winningCombinations[i];
-    const picks = triple.map((item) => boxStatus[item])
-    let howManyMarksO = picks.filter((value) => value === 'O').length
-    if (howManyMarksO === 2) {
-      let indexO = picks.findIndex((value) => !value)
-      if (indexO >= 0) {
-        played = true
-        mark(triple[indexO])
-        break
-      }
+  if (!findTwoThirds("O")) {    // Look for incomplete combinations with two Os first to win
+    if (!findTwoThirds("X")) {  // Look for incomplete combinations with two Xs to defend
+      computerFallbackChoices()      // If there are no incomplete combinations (e.g. start of game)
     }
-  }
-
-  for (let i = 0; i < winningCombinations.length; i++) {
-    const triple = winningCombinations[i];
-    const picks = triple.map((item) => boxStatus[item])
-    let howManyMarksX = picks.filter((value) => value === 'X').length
-    if (howManyMarksX === 2) {
-      let indexX = picks.findIndex((value) => !value)
-      if (indexX >= 0) {
-        played = true
-        mark(triple[indexX])
-        break
-      }
-    }
-  }
-
-  console.log(played)
-
-  if (!played) {
-    computerRandomMove()
-    played = true
   }
 
   updateGridBoxes()
 }
 
-function computerRandomMove() {
-  // Try to get the center
+//  picks other boxes when no combinations are available yet
+function computerFallbackChoices() {
+  // Give priority to center box if empty
   if (!boxStatus[4]) {
     mark(4)
     return
   }
 
-  // Get the first available square
-  const index = boxStatus.findIndex(v => !v)
+  // Get the first available box
+  const index = boxStatus.findIndex((v) => !v)
   mark(index)
-
-  // let cornerIndex = [0, 2, 6, 8]
-  // let availableCorners = cornerIndex.filter(i => !boxStatus[i])
-
-  // if (availableCorners.length > 0) {
-  //   let randomCornerIndex = Math.floor(Math.random() * (availableCorners.length + 1))
-  //   mark(availableCorners[randomCornerIndex])
-  // } else {
-  //   while (true) {
-  //     let randomIndex = Math.floor(Math.random() * 9);
-
-  //     if (boxStatus[randomIndex] === undefined) {
-  //       mark(randomIndex)
-  //       break
-  //     }
-  //   }
-  // }
 }
 
-// this function adds a class when a box is part of a selected winning combination
-function colorWinningCombination(triple) {
-  triple.forEach((index) => {
-    let box = document.querySelector(`.box[data-number="${index}"]`)
-    box.classList.add('winning')
-  })
-}
-
-function resetWinningCombination() {
-  for (let i = 0; i < 9; i++) {
-    let box = document.querySelector(`.box[data-number="${i}"]`)
-    box.classList.remove('winning')
-  }
-}
 
 // this function checks if the game is a tie
 function isTie() {
@@ -231,6 +191,16 @@ function isTie() {
   const filledBoxes = boxStatus.filter((item) => item) // where item is not null or undefined
   return !winner && filledBoxes.length === 9 // if filledBoxes are 9 and there is no winner, it must be a tie
 }
+
+
+
+
+
+//
+// DOM manipulation with event listeners
+//
+
+
 
 // goes through each single grid cell
 // checks if the boxStatus array has something in it at the index given which also represents the number of the cell
@@ -277,10 +247,21 @@ function updateMessage() {
   messageParagraph.textContent = message
 }
 
+// this function adds a class when a box is part of a selected winning combination
+function colorWinningCombination(triple) {
+  triple.forEach((index) => {
+    let box = document.querySelector(`.box[data-number="${index}"]`)
+    box.classList.add('winning')
+  })
+}
 
-//
-// DOM manipulation with event listeners
-//
+// resets the boxes to default style
+function resetWinningCombination() {
+  for (let i = 0; i < 9; i++) {
+    let box = document.querySelector(`.box[data-number="${i}"]`)
+    box.classList.remove('winning')
+  }
+}
 
 
 player2Select.addEventListener('change', function(e) {

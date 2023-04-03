@@ -16,7 +16,7 @@ body {
 
 .card {
   flex: 1;
-  max-width: 800px;
+  max-width: 900px;
   min-height: max(90vh, 600px);     /* the minimum height is the biggest number between the two values given depending on the viewport */
   background-color: rgb(27, 9, 59);
   border-radius: 1rem;
