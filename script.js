@@ -314,6 +314,10 @@ gameGrid.addEventListener('click', function(e) {
   if (!index)   // if element clicked is not in the grid, it prevents the change of turn by not doing anything
     return
  
+  // Do not let User choose for O while waiting for the computer
+  if (player2 === "Computer" && !isX)
+    return
+
   mark(index) // decides which mark is to be put in the boxStatus array
 
   if (player2 === "Computer") {
