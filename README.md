@@ -106,8 +106,8 @@ Web-based application that allows two users to play the classic game of Tic Tac 
 
 ### Future plans
 
-- [] Create an AI opponent: teach JavaScript to play an unbeatable game
-- [] Allow 2 players to play online with each other using any means such as WebSockets, Firebase, or other 3rd-party services.
+- [ ] Create an AI opponent: teach JavaScript to play an unbeatable game
+- [ ] Allow 2 players to play online with each other using any means such as WebSockets, Firebase, or other 3rd-party services.
 
 ## Playing
 
