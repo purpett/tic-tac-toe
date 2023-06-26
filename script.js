@@ -33,7 +33,7 @@ const winningCombinations = [
 //
 
 
-// storeGame()
+
 loadGame()
 
 // this function puts the variables representing game status inside localStorage
@@ -41,7 +41,7 @@ function storeGame() {
   let gameData = {
     isX: isX,
     boxStatus: boxStatus,
-    winner: winner, 
+    winner: winner,
     p1Scores: p1Scores,
     p2Scores: p2Scores,
     tieScores: tieScores,
@@ -110,7 +110,7 @@ function mark(index) {
       clickingSound.play()
     }
     incrementScores()
-  } 
+  }
   storeGame()
 }
 
@@ -123,13 +123,13 @@ function determineWinner() {
 
     // triple.map gets a triple, puts each item of triple at the index of boxStatus 
     // then makes a new array with all boxStatus[item]
-    const picks = triple.map((item) => boxStatus[item]) 
+    const picks = triple.map((item) => boxStatus[item])
     // array === array returns false. Had to transform to strings to compare
-    if (picks.toString() === ['X', 'X', 'X'].toString()) {   
-      colorWinningCombination(triple) 
+    if (picks.toString() === ['X', 'X', 'X'].toString()) {
+      colorWinningCombination(triple)
       return "Player 1"
     } else if (picks.toString() === ['O', 'O', 'O'].toString()) {
-      colorWinningCombination(triple) 
+      colorWinningCombination(triple)
       return player2
     }
   }
@@ -264,7 +264,7 @@ function resetWinningCombination() {
 }
 
 
-player2Select.addEventListener('change', function(e) {
+player2Select.addEventListener('change', function (e) {
   resetScores()
   newGameResetSound.play()
   startNewGame()
@@ -291,19 +291,19 @@ function resetScores() {
 }
 
 //resets localStorage content so that the game and the scores are empty
-resetBtn.addEventListener('click', function() {
+resetBtn.addEventListener('click', function () {
   resetScores()
   newGameResetSound.play()
   startNewGame()
   storeGame()
 })
 
-gameGrid.addEventListener('click', function(e) {
+gameGrid.addEventListener('click', function (e) {
   const box = e.target    // box is a div
   const index = box.dataset.number // which box has been clicked with it's number
   if (!index)   // if element clicked is not in the grid, it prevents the change of turn by not doing anything
     return
- 
+
   // Do not let User choose for O while waiting for the computer
   if (player2 === "Computer" && !isX)
     return
@@ -321,7 +321,7 @@ gameGrid.addEventListener('click', function(e) {
   updateMessage()   // updates user message
 });
 
-playersSection.addEventListener('click', function(e) {
+playersSection.addEventListener('click', function (e) {
   let player = e.target;
   if (player.id === "X") {
     p1IconImg += 1
