@@ -148,6 +148,7 @@ The timeframe provided for this project was 7 days. The game was developed indep
 
         ![update-grid-function](/readme_items/updateGridBoxes.png)
         ![token-change](/readme_items/change-tokens.gif)
+      
         <sub>The grid updates every time a token is changed<sub>
 3. Game storage: `storeGame()`  and `loadGame()` functions, using localStorage. The game is loaded when the page refreshes or closes. Throughout the code, the current game is stored every time something is updated (e.g. in functions and event handlers). 
     ![localStorage](/readme_items/localStorage.png)
